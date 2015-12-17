@@ -1,0 +1,37 @@
+# Ignore docs files
+_gh_pages
+_site
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.log
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*.zip
+*.lst
+*~
+
+# OS or Editor folders
+._*
+.cache
+.DS_Store
+.idea
+.tmproj
+*.esproj
+*.sublime-project
+*.sublime-workspace
+
+Thumbs.db
+
+# Jekyll metadata
+docs/.jekyll-metadata
+
+# Folders to ignore
+/target/
+.project
+*.classpath
+.settings
