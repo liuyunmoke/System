@@ -39,5 +39,8 @@ bower_components
 node_modules
 
 # eclipse m2e
+*.class
 *.classpath
+/bin/
 /target/
+/**/target/
