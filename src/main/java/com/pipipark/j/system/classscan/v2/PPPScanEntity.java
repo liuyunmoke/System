@@ -6,7 +6,7 @@ import com.pipipark.j.system.entity.PPPEntity;
 public class PPPScanEntity extends PPPEntity {
 	
 	private String name;
-	private Class<?> clazz;
+	private Class<?> type;
 	private Object target;
 
 	public Object getTarget() {
@@ -21,14 +21,12 @@ public class PPPScanEntity extends PPPEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Class<?> getClazz() {
-		return clazz;
+	public Class<?> getType() {
+		return type;
 	}
-	public void setClazz(Class<?> clazz) {
-		this.clazz = clazz;
+	public void setType(Class<?> type) {
+		this.type = type;
 	}
-
-
 	@Override
 	public void desc(StringBuilder string) throws Exception {
 		

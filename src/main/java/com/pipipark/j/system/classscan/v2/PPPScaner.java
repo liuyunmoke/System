@@ -14,53 +14,39 @@ import com.pipipark.j.system.core.PPPLogger;
 import com.pipipark.j.system.core.PPPString;
 import com.pipipark.j.system.entity.PPPEntity;
 
-@SuppressWarnings({"serial"})
+@SuppressWarnings({"serial","rawtypes","unchecked"})
 public abstract class PPPScaner<T> extends PPPEntity implements IPPPark {
 	
 	private Set<PPPScanEntity> _list = new TreeSet<PPPScanEntity>(new ScanEntityAscComparator());
-//	private Set _list = new TreeSet();
 	private Type _scanerType = null;
 	
 	void set(Class<?> clazz) {
-//		Object obj = create(cls);
-//		if(obj!=null){
-//			PPPLogger.info("scan object: "+obj.getClass().getName());
-//			if(obj instanceof PPPInitMethod){
-//				PPPInitMethod initObj = (PPPInitMethod)obj;
-//				initObj.init_method(obj);
-//			}
-//			_list.add(obj);
-//		}
 		if(clazz != null){
 			PPPLogger.info("scan target class: "+clazz.getName());
-//			Object target = create(clazz);
-//			if(target==null){
-//				return;
-//			}
-//			PPPScanerManager.exist(clazz, target);
-			
-			
 			PPPScanEntity entity = new PPPScanEntity();
 			entity.setName(PPPString.aliasName(clazz));
-			entity.setClazz(clazz);
-			config(entity);
+			entity.setType(clazz);
+			PPPScanerManager.register(clazz, this);
 			_list.add(entity);
 		}
 	}
 	
-	public List<Class<?>> list(){
+	public List<PPPScanEntity> list(){
+		return new ArrayList<PPPScanEntity>(_list);
+	}
+	
+	public List<Class<?>> types(){
 		List<Class<?>> list = new ArrayList<Class<?>>();
 		for (PPPScanEntity entity : _list) {
-			list.add(entity.getClazz());
+			list.add(entity.getType());
 		}
 		return list;
 	}
 	
-	public Set<?> data(){
+	public Set<PPPScanEntity> getData(){
 		for (PPPScanEntity entity : _list) {
 			if(entity.getTarget()==null){
-				Object target = target(entity);
-				entity.setTarget(target);
+				entity.setTarget(target(entity));
 			}
 		}
 		return _list;
@@ -78,16 +64,18 @@ public abstract class PPPScaner<T> extends PPPEntity implements IPPPark {
 		return _scanerType;
 	}
 	
-	protected void config(PPPScanEntity entity){
-	}
-	
 	protected Object target(PPPScanEntity entity){
-		try {
-			return entity.getClazz().newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			PPPLogger.error("Create scan object happend Exeption!", e);
-			return null;
-		}
+			try {
+				Object target = entity.getType().newInstance();
+				if(target!=null && target instanceof PPPInitMethod){
+					PPPInitMethod initObj = (PPPInitMethod)target;
+					initObj.init_method(target);
+				}
+				return target;
+			} catch (InstantiationException | IllegalAccessException e) {
+				PPPLogger.error("Create scan object happend Exeption!", e);
+				return null;
+			}
 	}
 	
 	@Override

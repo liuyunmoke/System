@@ -2,8 +2,6 @@ package com.pipipark.j.system.classscan.v2;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +17,7 @@ public class PPPScanerManager implements IPPPark {
 	private static PPPScanerManager _me;
 	private static final Object syncLock = new Object();
 	private ConcurrentMap<String, PPPScaner> scaners = new ConcurrentHashMap<String, PPPScaner>();
-//	private ConcurrentMap<Class, Object> objects = new ConcurrentHashMap<Class, Object>();
-	private ConcurrentMap<Class, PPPScanEntity> classes = new ConcurrentHashMap<Class, PPPScanEntity>();
+	private ConcurrentMap<Class, Set<PPPScaner>> classes = new ConcurrentHashMap<Class, Set<PPPScaner>>();
 	
 	private PPPScanerManager() {}
 	
@@ -41,24 +38,18 @@ public class PPPScanerManager implements IPPPark {
 		manager.scaners.put(key, scaner);
 	}
 	
-//	static Class<?> exist(Class<?> key, Object target){
-//		PPPScanerManager manager = getInstance();
-//		Boolean bool = manager.classes.add(key);
-//		if(!bool){
-//			for (Iterator<Class<?>> ite = manager.classes.iterator();ite.hasNext();) {
-//				Class<?> clazz = ite.next();
-//				if(clazz==key){
-//					return clazz;
-//				}
-//			}
-//		}
-//		return key;
-//	}
-	
-//	public static Set<Class<?>> allScanClasses(){
-//		PPPScanerManager manager = getInstance();
-//		return manager.classes;
-//	}
+	static void register(Class<?> key, PPPScaner scaner){
+		PPPScanerManager manager = getInstance();
+		Boolean bool = manager.classes.containsKey(key);
+		Set<PPPScaner> scaners;
+		if(!bool){
+			scaners = new LinkedHashSet<PPPScaner>();
+			manager.classes.put(key, scaners);
+		}else{
+			scaners = manager.classes.get(key);
+		}
+		scaners.add(scaner);
+	}
 	
 	public static PPPScaner[] allScaner(){
 		PPPScanerManager manager = getInstance();

@@ -10,6 +10,6 @@ public class ScanEntityDescComparator extends IndexDescComparator {
 	public int compare(Object a, Object b) {
 		PPPScanEntity ae = (PPPScanEntity)a;
 		PPPScanEntity ab = (PPPScanEntity)b;
-		return super.compare(ae.getClazz(), ab.getClazz());
+		return super.compare(ae.getType(), ab.getType());
 	}
 }
