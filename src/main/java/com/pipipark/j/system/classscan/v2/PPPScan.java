@@ -137,6 +137,7 @@ public final class PPPScan implements IPPPark {
 					clazz = Thread.currentThread().getContextClassLoader()
 							.loadClass(path);
 				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				}
 				if (clazz == null) {
 					continue;
