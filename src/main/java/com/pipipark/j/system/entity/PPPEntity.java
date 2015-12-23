@@ -321,9 +321,9 @@ public abstract class PPPEntity extends PPPEventListener implements IPPPark,Comp
 		} catch (Exception e) {
 			throw new PPPTipsException("Install entity happen Exception!");
 		}
-		if (_string == null || _string.toString().trim().length() <= 0) {
-			throw new PPPTipsException("Install entity's property \"string\" can't be empty!");
-		}
+//		if (_string == null || _string.toString().trim().length() <= 0) {
+//			throw new PPPTipsException("Install entity's property \"string\" can't be empty!");
+//		}
 		return _string.toString();
 	}
 
