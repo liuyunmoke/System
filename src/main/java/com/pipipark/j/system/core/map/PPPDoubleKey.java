@@ -28,7 +28,19 @@ public class PPPDoubleKey<K, KK> {
 			return false;
 		}
 		PPPDoubleKey key = (PPPDoubleKey) o;
-		return k == key.k && kk == key.kk;
+		boolean kBool = false;
+		if(k instanceof String){
+			kBool = k.equals(key.k);
+		}else{
+			kBool = k == key.k;
+		}
+		boolean kkBool = false;
+		if(kk instanceof String){
+			kkBool = kk.equals(key.kk);
+		}else{
+			kkBool = kk == key.kk;
+		}
+		return kBool && kkBool;
 	}
 	
 	@Override
