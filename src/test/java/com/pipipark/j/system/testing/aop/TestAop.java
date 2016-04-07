@@ -4,6 +4,7 @@ import com.pipipark.j.system.aop.PPPNotice;
 import com.pipipark.j.system.aop.PPPProxy;
 import com.pipipark.j.system.aop.PPPProxyFactory;
 import com.pipipark.j.system.exception.PPPServiceException;
+import com.pipipark.j.system.listener.EventParams;
 import com.pipipark.j.system.testing.aop.cglib.CglibBean;
 import com.pipipark.j.system.testing.aop.jdk.JdkBean;
 import com.pipipark.j.system.testing.aop.jdk.IJdk;
@@ -19,6 +20,12 @@ public class TestAop {
 			@Override
 			public void fireEvent() {
 				System.out.println("notice after method2!");
+			}
+
+			@Override
+			public void fireEvent(EventParams p) {
+				// TODO Auto-generated method stub
+				
 			}
 		}).target().testJdkProxy();
 		

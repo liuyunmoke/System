@@ -3,6 +3,7 @@ package com.pipipark.j.system.listener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -138,6 +139,31 @@ public class PPPEventListener<T extends PPPEvent> implements PPPListener<T> {
 		}
 		for (EventGroup<T> eventGroup : list) {
 			eventGroup.fireAllEvents();
+		}
+	}
+	
+	@Override
+	public void fireListener(Class<T> eventType, Map<String, Object>... params) {
+		if(!chenck()){
+			return;
+		}
+		EventParams p = new EventParams();
+		for (Map<String, Object> map : params) {
+			p.getAttr().putAll(map);
+		}
+		
+		List<EventGroup<T>> list = new ArrayList<EventGroup<T>>();
+		for (Iterator<Class<T>> ite = events.keySet().iterator();ite.hasNext();) {
+			Class<T> clazz = ite.next();
+			if(eventType.isAssignableFrom(clazz)){
+				EventGroup<T> eventGroup = events.get(clazz);
+				if(eventGroup!=null){
+					list.add(eventGroup);
+				}
+			}
+		}
+		for (EventGroup<T> eventGroup : list) {
+			eventGroup.fireAllEvents(p);
 		}
 	}
 	

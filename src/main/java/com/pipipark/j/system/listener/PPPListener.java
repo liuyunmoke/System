@@ -1,5 +1,7 @@
 package com.pipipark.j.system.listener;
 
+import java.util.Map;
+
 import com.pipipark.j.system.IPPPark;
 
 
@@ -25,4 +27,5 @@ public interface PPPListener<T extends PPPEvent> extends IPPPark {
 	
 	void fireListener(Class<T> eventType);
 	
+	void fireListener(Class<T> eventType, Map<String, Object>... p);
 }

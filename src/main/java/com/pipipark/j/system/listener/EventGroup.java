@@ -31,7 +31,7 @@ public class EventGroup<T extends PPPEvent> extends Vector<T> implements IPPPark
 		}
 		for (PPPEvent e : this) {
 			if(event==e){
-				e.fireEvent();
+				e.fireEvent(null);
 				break;
 			}
 		}
@@ -39,7 +39,13 @@ public class EventGroup<T extends PPPEvent> extends Vector<T> implements IPPPark
 	
 	public void fireAllEvents(){
 		for (PPPEvent e : this) {
-			e.fireEvent();
+			e.fireEvent(null);
+		}
+	}
+	
+	public void fireAllEvents(EventParams p){
+		for (PPPEvent e : this) {
+			e.fireEvent(p);
 		}
 	}
 }

@@ -9,5 +9,5 @@ import com.pipipark.j.system.IPPPark;
  */
 public interface PPPEvent extends IPPPark {
 	
-	public void fireEvent();
+	public void fireEvent(EventParams p);
 }

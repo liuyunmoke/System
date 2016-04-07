@@ -1,5 +1,6 @@
 package com.pipipark.j.system.testing.entity.event;
 
+import com.pipipark.j.system.listener.EventParams;
 import com.pipipark.j.system.listener.PPPEvent;
 
 @SuppressWarnings("serial")
@@ -12,7 +13,7 @@ public class TestEvent implements PPPEvent {
 	}
 
 	@Override
-	public void fireEvent() {
+	public void fireEvent(EventParams p) {
 		System.out.println("fireEvent,sid="+sid+"!");
 	}
 
