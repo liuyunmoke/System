@@ -95,6 +95,7 @@ public final class PPPScan implements IPPPark {
 				}
 			}
 		}
+		System.out.println("scan over.");
 	}
 
 	@SuppressWarnings("unchecked")

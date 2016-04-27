@@ -4,7 +4,7 @@ import com.pipipark.j.system.core.PPPLogger;
 
 /***
  * 提示性异常,
- * 重要性:"弱",在debug模式下打印输出.
+ * 无需try-catch.
  * @author pipipark:cwj
  */
 @SuppressWarnings("serial")
