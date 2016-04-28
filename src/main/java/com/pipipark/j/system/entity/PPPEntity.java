@@ -432,7 +432,7 @@ public abstract class PPPEntity extends PPPEventListener implements IPPPark,Comp
 	}
 	
 	/**
-	 * 组装,子类实现,可以导出组装后的信息.
+	 * 描述信息,子类实现.
 	 * @throws Exception
 	 */
 	public abstract void desc(StringBuilder string) throws Exception;

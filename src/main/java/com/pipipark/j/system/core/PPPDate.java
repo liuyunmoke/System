@@ -1,5 +1,6 @@
 package com.pipipark.j.system.core;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,7 +28,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	
 	/**
 	 * 设置时间
-	 * @param date
+	 * @param Date
 	 */
 	public static final PPPDate set(Date date){
 		return new PPPDate(date);
@@ -35,7 +36,21 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	
 	/**
 	 * 设置时间
-	 * @param milliSecond
+	 * @param Timestamp
+	 */
+	public static final PPPDate set(Timestamp time){
+		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd);
+		String stringDate = format.format(time);
+		try {
+			return new PPPDate(format.parse(stringDate));
+		} catch (ParseException e) {
+			throw new PPPTipsException("["+stringDate+"]日期格式解析错误!", e);
+		}
+	}
+	
+	/**
+	 * 设置时间
+	 * @param Long
 	 */
 	public static final PPPDate set(Long milliSecond){
 		Calendar c = Calendar.getInstance();
@@ -45,7 +60,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	
 	/**
 	 * 根据时间字符串设置时间
-	 * @param string
+	 * @param String
 	 */
 	public static final PPPDate set(String stringDate){
 		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd);
@@ -58,7 +73,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	
 	/**
 	 * 根据时间字符串和格式设置时间
-	 * @param PPPDate
+	 * @param String
 	 */
 	public static final PPPDate set(String stringDate, String pattern){
 		SimpleDateFormat format = formater(pattern);
@@ -68,6 +83,24 @@ public class PPPDate implements PPPComparable<PPPDate>{
 			throw new PPPTipsException("["+stringDate+"]日期格式解析错误!", e);
 		}
 	}
+	
+	/**
+	 * 根据时间字符串和格式设置时间
+	 * @param Timestamp
+	 * @param String
+	 * @return PPPDate
+	 */
+	public static final PPPDate set(Timestamp time, String pattern){
+		SimpleDateFormat format = formater(pattern);
+		String stringDate = format.format(time);
+		try {
+			return set(format.parse(stringDate));
+		} catch (ParseException e) {
+			throw new PPPTipsException("["+stringDate+"]日期格式解析错误!", e);
+		}
+	}
+	
+	
 	
 	/**
 	 * 当前时间.
