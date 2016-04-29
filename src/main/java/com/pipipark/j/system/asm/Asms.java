@@ -70,8 +70,8 @@ public class Asms {
 	        className = className.substring(lastDotIndex + 1) + ".class";  
 	        InputStream is = clazz.getResourceAsStream(className);  
 	        try {  
-	            ClassReader classReader = new ClassReader(is);  
-	            classReader.accept(new ClassVisitor(Opcodes.ASM4) {  
+	            ClassReader classReader = new ClassReader(is);
+	            classReader.accept(new ClassVisitor(Opcodes.ASM4) {
 	                @Override  
 	                public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {  
 	                    // 只处理指定的方法  
