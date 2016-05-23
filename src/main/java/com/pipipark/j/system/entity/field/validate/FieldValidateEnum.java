@@ -20,7 +20,7 @@ public enum FieldValidateEnum {
 	/*
 	 * 非Null
 	 */
-	NotNull(PPPConstant.Indexs.DEFAULT_INDEX-3000, "value can't be null!",
+	NotNull(PPPConstant.Index.Highest.value(), "value can't be null!",
 			new IFieldValidate() {
 				public boolean handler(Field field, Object obj) {
 					try {
@@ -40,7 +40,7 @@ public enum FieldValidateEnum {
 	/*
 	 * 非空String,非空List,非空Map
 	 */
-	NotEmpty(PPPConstant.Indexs.DEFAULT_INDEX, "content can't be empty!",
+	NotEmpty(PPPConstant.Index.Default.value(), "content can't be empty!",
 			new IFieldValidate() {
 				public boolean handler(Field field, Object obj) {
 					try {
@@ -78,7 +78,7 @@ public enum FieldValidateEnum {
 	/*
 	 * 数字非负验证
 	 */
-	NotNegativeNumber(PPPConstant.Indexs.HIGHEST_INDEX-3000,
+	NotNegativeNumber(PPPConstant.Index.Highest.value(),
 			"number can't be less than zero!", new IFieldValidate() {
 				public boolean handler(Field field, Object obj) {
 					try {

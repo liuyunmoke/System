@@ -39,7 +39,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @param Timestamp
 	 */
 	public static final PPPDate set(Timestamp time){
-		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd);
+		SimpleDateFormat format = formater(Dateformat.Default.value());
 		String stringDate = format.format(time);
 		try {
 			return new PPPDate(format.parse(stringDate));
@@ -63,7 +63,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @param String
 	 */
 	public static final PPPDate set(String stringDate){
-		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd);
+		SimpleDateFormat format = formater(Dateformat.Default.value());
 		try {
 			return set(format.parse(stringDate));
 		} catch (ParseException e) {
@@ -398,11 +398,41 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * 精确到秒.
 	 * @param Date
 	 */
-	public final Boolean isSame(Date target){
+	public final Boolean isSameHour(Date target){
 		if(target==null){
 			return false;
 		}
-		if((date.getTime()/1000)==(target.getTime()/1000)){
+		if(this.format("yyyy-MM-dd HH").equals(set(target).format("yyyy-MM-dd HH"))){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 是否相同时间,
+	 * 精确到秒.
+	 * @param Date
+	 */
+	public final Boolean isSameMinute(Date target){
+		if(target==null){
+			return false;
+		}
+		if(this.format("yyyy-MM-dd HH:mm").equals(set(target).format("yyyy-MM-dd HH:mm"))){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 是否相同时间,
+	 * 精确到秒.
+	 * @param Date
+	 */
+	public final Boolean isSameSecond(Date target){
+		if(target==null){
+			return false;
+		}
+		if(this.format().equals(set(target).format())){
 			return true;
 		}
 		return false;
@@ -460,8 +490,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @param date
 	 */
 	public final Boolean isSameYear(Date target){
-		Calendar meCalendar = defaultCalendar();
-		int meYear = meCalendar.get(Calendar.YEAR);
+		int meYear = year();
 		Calendar targetCalendar = defaultCalendar();
 		targetCalendar.setTime(target);
 		int targetYear = targetCalendar.get(Calendar.YEAR);
@@ -497,7 +526,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @return 格式化后的时间字符串
 	 */
 	public final String format(){
-		return formater(PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).format(this.date);
+		return formater(Dateformat.yyyyMMddHHmmss.value()).format(this.date);
 	}
 	
 	/**
@@ -507,13 +536,16 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	public final String format(String pattern){
 		return formater(pattern).format(this.date);
 	}
+	public final String format(PPPDate.Dateformat patternEnum){
+		return formater(patternEnum.value()).format(this.date);
+	}
 	
 	/**
 	 * 短格式化
 	 * @return 格式化后的时间字符串
 	 */
 	public final String formatShort(){
-		return formater(PPPConstant.DateFormats.yyyy_MM_dd).format(this.date);
+		return formater(Dateformat.yyyyMMdd.value()).format(this.date);
 	}
 	
 	/**
@@ -522,7 +554,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @return 长日期时间
 	 */
 	public final Date time(){
-		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss);
+		SimpleDateFormat format = formater(Dateformat.yyyyMMddHHmmss.value());
 		try {
 			return format.parse(format.format(this.date));
 		} catch (ParseException e) {
@@ -536,7 +568,7 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	 * @return 短日期时间
 	 */
 	public final Date timeShort(){
-		SimpleDateFormat format = formater(PPPConstant.DateFormats.yyyy_MM_dd);
+		SimpleDateFormat format = formater(Dateformat.yyyyMMdd.value());
 		try {
 			return format.parse(format.format(this.date));
 		} catch (ParseException e) {
@@ -599,6 +631,42 @@ public class PPPDate implements PPPComparable<PPPDate>{
 	}
 	
 	/**
+	 * 根据时间获得小时.
+	 * @return hour
+	 */
+	public final Integer hour(){
+		Calendar c = Calendar.getInstance();
+		if(date!=null){
+			c.setTime(date);
+		}
+		return c.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	/**
+	 * 根据时间获得小时.
+	 * @return hour
+	 */
+	public final Integer minute(){
+		Calendar c = Calendar.getInstance();
+		if(date!=null){
+			c.setTime(date);
+		}
+		return c.get(Calendar.MINUTE);
+	}
+	
+	/**
+	 * 根据时间获得小时.
+	 * @return hour
+	 */
+	public final Integer second(){
+		Calendar c = Calendar.getInstance();
+		if(date!=null){
+			c.setTime(date);
+		}
+		return c.get(Calendar.SECOND);
+	}
+	
+	/**
 	 * 默认Calendar工具,
 	 * 清空时分秒和毫秒,否则会得到当前的时分秒.
 	 */
@@ -646,4 +714,27 @@ public class PPPDate implements PPPComparable<PPPDate>{
 		}
 		return 0;
 	}
+	
+	
+	/***
+	 * 日期格式化常量工具类.
+	 */
+	public static enum Dateformat {
+		Default("yyyy-MM-dd"),
+		yyyyMMdd("yyyy-MM-dd"),
+		yyyyMMddHHmmss("yyyy-MM-dd HH:mm:ss"),
+		yyyyMMddHHmmssSSS("yyyy-MM-dd HH:mm:ss.SSS"),
+		YearMonthDay("yyyy年MM月dd日"),
+		YearMonthDayHourMinuteSecond("yyyy年MM月dd日 HH时mm分ss秒");
+		
+		private final String _name;
+		
+		private Dateformat(final String name){
+			this._name = name;
+		}
+		public final String value(){
+			return _name;
+		}
+	}
+	
 }

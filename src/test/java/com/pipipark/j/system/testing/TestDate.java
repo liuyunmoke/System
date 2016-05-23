@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.pipipark.j.system.core.PPPConstant;
 import com.pipipark.j.system.core.PPPDate;
 
 public class TestDate {
@@ -48,13 +47,15 @@ public class TestDate {
 			System.out.println("排序: "+date.format());
 		}
 		
-		System.out.println("相同时间(秒): "+PPPDate.set("2015-11-18").isSame(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
-		System.out.println("相同天: "+PPPDate.set("2015-10-18").isSameDay(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
-		System.out.println("相同月: "+PPPDate.set("2015-10-18").isSameMonth(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
-		System.out.println("相同周: "+PPPDate.set("2015-10-18").isSameWeek(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
-		System.out.println("相同年: "+PPPDate.set("2015-11-18").isSameYear(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
+		System.out.println("相同时间(时): "+PPPDate.set("2015-11-18 12:56:26", PPPDate.Dateformat.yyyyMMddHHmmss.value()).isSameHour(PPPDate.set("2015-11-18 12:51:16", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同时间(分): "+PPPDate.set("2015-11-18 12:56:26", PPPDate.Dateformat.yyyyMMddHHmmss.value()).isSameMinute(PPPDate.set("2015-11-18 11:56:36", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同时间(秒): "+PPPDate.set("2015-11-18 12:56:26", PPPDate.Dateformat.yyyyMMddHHmmss.value()).isSameSecond(PPPDate.set("2015-11-18 12:57:26", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同天: "+PPPDate.set("2015-10-18").isSameDay(PPPDate.set("2015-10-18 14:40:01", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同月: "+PPPDate.set("2015-10-18").isSameMonth(PPPDate.set("2015-10-35 14:40:01", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同周: "+PPPDate.set("2015-10-18").isSameWeek(PPPDate.set("2015-10-22 14:40:01", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
+		System.out.println("相同年: "+PPPDate.set("2015-11-18").isSameYear(PPPDate.set("2015-11-18 14:40:01", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
 		
-		System.out.println(PPPDate.set("2015-11-18").betweenDay(PPPDate.set("2015-11-18 14:40:01", PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss).time()));
+		System.out.println(PPPDate.set("2015-11-18").betweenDay(PPPDate.set("2015-11-18 14:40:01", PPPDate.Dateformat.yyyyMMddHHmmss.value()).time()));
 		
 	}
 

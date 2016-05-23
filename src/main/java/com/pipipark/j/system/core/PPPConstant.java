@@ -29,16 +29,6 @@ public abstract class PPPConstant implements IPPPark {
 		}
 		
 		/**
-		 * 默认字符集
-		 */
-		public static final String DEFAULT_CHARSET = "UTF-8";
-		
-		/**
-		 * 默认查找的资源路径
-		 */
-		public static final String DEFAULT_RESOURCE_PATH = "com/pipipark/j/resource/";
-		
-		/**
 		 * 当前操作系统名称
 		 */
 		public static final String OS_NAME;
@@ -92,16 +82,45 @@ public abstract class PPPConstant implements IPPPark {
 	}
 	
 	
+	/**
+	 * 默认字符集
+	 */
+	public static enum Charset{
+		Default("UTF-8"),
+		UTF8("UTF-8"),
+		UTF16("UTF-16"),
+		GBK("GBK"),
+		GB2312("GB2312"),
+		ASCII("ISO-8859-1");
+		
+		
+		private final String _name;
+		
+		private Charset(final String name){
+			this._name = name;
+		}
+		public final String value(){
+			return _name;
+		}
+	}
 	
 	/**
 	 * 排序常量工具类,
-	 * 提供0-10000的级别常量,"0"表示优先级最高级别,"10000"为优先级最低,默认是"5500".
+	 * 提供0-900级别常量,"0"表示优先级最高级别,"900"为优先级最低,默认是"500".
 	 */
-	public static abstract class Indexs {
-		public static final int HIGHEST_INDEX = 1000;
-		public static final int DEFAULT_INDEX = 5500;
-		public static final int MINIMUM_INDEX = 10000;
-		public static final int INDEX_UNIT = 50;
+	public static enum Index {
+		Default(500),
+		Highest(100),
+		Minimum(900);
+		
+		private final int _name;
+		
+		private Index(final int name){
+			this._name = name;
+		}
+		public final int value(){
+			return _name;
+		}
 	}
 	
 	/**
@@ -113,19 +132,6 @@ public abstract class PPPConstant implements IPPPark {
 		public static final int FIELD_PROTECTED = 2;
 		public static final int FIELD_PUBLIC = 3;
 		public static final int FIELD_FRIENDY = 4;
-	}
-	
-	
-	/***
-	 * 日期格式化常量工具类.
-	 */
-	public abstract class DateFormats {
-		public static final String yyyy_MM_dd = "yyyy-MM-dd";
-		public static final String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-		public static final String yyyy_MM_dd_HH_mm_ss_SSS = "yyyy-MM-dd HH:mm:ss.SSS";
-		public static final String yyyyMMdd = "yyyyMMdd";
-		public static final String yyyyMMddHHmmss = "yyyyMMddHHmmss";
-		public static final String year_month_day = "yyyy年MM月dd日";
 	}
 	
 }

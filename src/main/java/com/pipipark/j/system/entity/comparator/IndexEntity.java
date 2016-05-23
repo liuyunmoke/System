@@ -19,5 +19,5 @@ import com.pipipark.j.system.core.PPPConstant;
 @Target(ElementType.TYPE)
 public @interface IndexEntity {
 
-	int value() default PPPConstant.Indexs.DEFAULT_INDEX;
+	PPPConstant.Index value() default PPPConstant.Index.Default;
 }

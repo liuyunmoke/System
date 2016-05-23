@@ -17,13 +17,13 @@ public class EntityComparator implements PPPComparator<PPPEntity> {
 	public int compare(PPPEntity a, PPPEntity b) {
 		IndexEntity ai = a.getClass().getAnnotation(IndexEntity.class);
 		IndexEntity bi = b.getClass().getAnnotation(IndexEntity.class);
-		int aInt = PPPConstant.Indexs.DEFAULT_INDEX;
-		int bInt = PPPConstant.Indexs.DEFAULT_INDEX;
+		int aInt = PPPConstant.Index.Default.value();
+		int bInt = PPPConstant.Index.Default.value();
 		if(ai!=null){
-			aInt = ai.value();
+			aInt = ai.value().value();
 		}
 		if(bi!=null){
-			bInt = bi.value();
+			bInt = bi.value().value();
 		}
 		if(aInt>bInt){
 			return 1;

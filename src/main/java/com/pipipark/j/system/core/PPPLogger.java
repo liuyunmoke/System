@@ -30,8 +30,7 @@ public abstract class PPPLogger implements IPPPark {
 	static {
 		InputStream stream = null;
 		stream = PPPLogger.class.getClassLoader()
-				.getResourceAsStream(PPPConstant.Systems.DEFAULT_RESOURCE_PATH
-						+ "logs/logback-log.xml");
+				.getResourceAsStream("system/logs/logback-log.xml");
 		if (stream != null) {
 			LoggerContext lc = (LoggerContext) LoggerFactory
 					.getILoggerFactory();

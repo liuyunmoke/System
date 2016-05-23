@@ -17,13 +17,13 @@ public class EventComparator implements PPPComparator<Class> {
 	public int compare(Class a, Class b) {
 		IndexEvent ai = (IndexEvent)a.getAnnotation(IndexEvent.class);
 		IndexEvent bi = (IndexEvent)b.getAnnotation(IndexEvent.class);
-		int aInt = PPPConstant.Indexs.DEFAULT_INDEX;
-		int bInt = PPPConstant.Indexs.DEFAULT_INDEX;
+		int aInt = PPPConstant.Index.Default.value();
+		int bInt = PPPConstant.Index.Default.value();
 		if(ai!=null){
-			aInt = ai.value();
+			aInt = ai.value().value();
 		}
 		if(bi!=null){
-			bInt = bi.value();
+			bInt = bi.value().value();
 		}
 		if(aInt>bInt){
 			return 1;

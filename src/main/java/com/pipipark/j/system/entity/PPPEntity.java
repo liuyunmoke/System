@@ -446,14 +446,14 @@ public abstract class PPPEntity extends PPPEventListener implements IPPPark,Comp
 	public int compareTo(PPPEntity target) {
 		IndexEntity mineBi = this.getClass().getAnnotation(IndexEntity.class);
 		IndexEntity targetBi = target.getClass().getAnnotation(IndexEntity.class);
-		int mineInt = PPPConstant.Indexs.DEFAULT_INDEX;
-		int targetInt = PPPConstant.Indexs.DEFAULT_INDEX;
+		int mineInt = PPPConstant.Index.Default.value();
+		int targetInt = PPPConstant.Index.Default.value();
 		
 		if(mineBi!=null){
-			mineInt = mineBi.value();
+			mineInt = mineBi.value().value();
 		}
 		if(targetBi!=null){
-			targetInt = targetBi.value();
+			targetInt = targetBi.value().value();
 		}
 		if(mineInt>targetInt){
 			return 1;
